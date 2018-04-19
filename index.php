@@ -1,22 +1,52 @@
 <?php include('inc/head.php'); ?>
 <?php
 
+function rmdir_recurse($path) {
+
+    $handle = opendir($path);
+    while (false !== ($file = readdir($handle))) {
+        if ($file != '.' and $file != '..') {
+            $fullpath = $path ."/". $file;
+            if (is_dir($fullpath)) rmdir_recurse($fullpath); else unlink($fullpath);
+        }
+    }
+    closedir($handle);
+    rmdir($path);
+}
+
+
 if(!empty($_GET["name"])) {
     if(!is_dir($_GET["name"])) {
         unlink($_GET["name"]);
     } else {
-        $path=($_GET["name"]);
-        $handle = opendir($path);
-        while (false !== ($file = readdir($handle))) {
-            if ($file != '.' and $file != '..') {
-                $fullpath = $path ."/". $file;
-                if (is_dir($fullpath)) rmdir_recurse($fullpath); else unlink($fullpath);
-            }
-        }
-        closedir($handle);
-        rmdir($path);
+        rmdir_recurse(($_GET["name"]));
+
     }
 }
+
+/**
+delete_files('/path/for/the/directory/');
+/*
+ * php delete function that deals with directories recursively
+
+
+    $target=($_GET["name"]);
+
+
+    function delete_files($target)
+    {
+    if (is_dir($target)) {
+        $files = glob($target . '*', GLOB_MARK ); //GLOB_MARK adds a slash to directories returned
+
+        foreach ($files as $file) {
+            delete_files($file);
+        }
+
+        rmdir($target);
+    } elseif (is_file($target)) {
+        unlink($target);
+    }
+    */
 /**
  * @param $dir
  */
