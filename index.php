@@ -29,13 +29,13 @@ function mkmap($dir) {
             if ($extension =="txt" || $extension =="html") {
                 echo "<li><p>
                 <a class=\"green\" type=\"submit\" method=\"GET\" href=\"delete.php?f=$pathfile\">$file</a>
-                <a type=\"submit\" method=\"GET\" href=\"index.php?name=$pathfile\">delete</a></p></li>";
+                <a method=\"GET\" href=\"index.php?name=$pathfile\">delete</a></p></li>";
             } elseif ($extension == "jpg") {
                 echo "<li><a class=\"green\" href=$pathfile>$file</a>
-                <a type=\"submit\" method=\"GET\" href=\"index.php?name=$pathfile\">delete</li>";
+                <a method=\"GET\" href=\"index.php?name=$pathfile\">delete</a></li>";
             } else {
                 echo "<li><p>$file
-                <a type=\"submit\" method=\"GET\" href=\"index.php?name=$pathfile\">delete directory</a></p></li>";
+                <a method=\"GET\" href=\"index.php?name=$pathfile\">delete directory</a></p></li>";
             }
             if(filetype($pathfile) == 'dir') {
                 mkmap($pathfile);
